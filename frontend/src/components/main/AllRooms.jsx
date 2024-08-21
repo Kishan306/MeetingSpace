@@ -35,7 +35,7 @@ function AllRooms() {
 
   return (
     <>
-      <h2 className="md:ml-24 mb-8 text-3xl md:text-5xl font-bold mt-4">
+      <h2 className="md:ml-24 mb-8 text-3xl md:text-5xl font-bold mt-8 ">
         All Rooms
       </h2>
       <div className="flex flex-col md:flex-row justify-start p-6 mt-4 px-36">

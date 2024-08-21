@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Avatar, Menu } from "primereact";
+import { Badge } from 'primereact/badge';
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Sidebar } from "primereact/sidebar";
@@ -86,7 +87,7 @@ const NavigationBar = () => {
           </div>
         )}
       </Sidebar>
-      <nav className="bg-gray-800 py-4 min-h-16 sticky top-0 z-50 w-full">
+      <nav className="bg-blue-500 py-4 min-h-16 sticky top-0 z-50 w-full">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Navigation Links */}
@@ -142,9 +143,11 @@ const NavigationBar = () => {
               ) : (
                 <div className="flex justify-between items-center">
                   <i
-                    className="pi pi-bell text-white mr-8 text-2xl"
+                    className="pi pi-bell text-white mr-8 text-2xl p-overlay-badge"
                     onClick={() => setNotificationPanel(true)}
-                  />
+                  >
+                  {notifications && notifications.length > 0 && <Badge severity='danger'></Badge>}
+                  </i>
                   <Avatar
                     label={avatar}
                     size="large"

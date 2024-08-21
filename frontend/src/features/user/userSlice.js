@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../api/apiClient";
 import { setToken, removeToken, getCurrentUser } from "../../utils/auth";
-import { fetchNotifications, clearNotifications } from "../notifications/notifications";
-import { useDispatch } from "react-redux";
 
 //login thunk:
 export const login = createAsyncThunk(

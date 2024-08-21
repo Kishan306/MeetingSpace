@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signup } from '../../features/user/userSlice';
+import { clearNotifications, fetchNotifications } from "../../features/notifications/notifications";
+import { getCurrentUser } from "../../utils/auth";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -21,7 +23,10 @@ const SignUpPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signup({ username, email, password }));
+    dispatch(signup({ username, email, password })).then(()=>{
+      dispatch(clearNotifications())
+      dispatch(fetchNotifications(getCurrentUser().id))
+    });
   };
 
   return (

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../features/user/userSlice";
+import { clearNotifications, fetchNotifications } from "../../features/notifications/notifications";
+import { getCurrentUser } from "../../utils/auth";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,10 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ email, password }))
+    dispatch(login({ email, password })).then(()=>{
+      dispatch(clearNotifications())
+      dispatch(fetchNotifications(getCurrentUser().id))
+    })
   };
 
   return (

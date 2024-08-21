@@ -3,7 +3,10 @@ import { Avatar, Menu } from "primereact";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Sidebar } from "primereact/sidebar";
-import { clearNotifications, fetchNotifications } from "../../features/notifications/notifications";
+import {
+  clearNotifications,
+  fetchNotifications,
+} from "../../features/notifications/notifications";
 import { formatDate } from "../../utils/dateService";
 import { logout } from "../../features/user/userSlice";
 
@@ -11,18 +14,22 @@ const NavigationBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [notificationPanel, setNotificationPanel] = useState(false);
   const user = useSelector((state) => state.user.user);
-
-  const { notifications, status, error } = useSelector((state) => state.notifications);
 
   const menuRight = useRef(null);
 
   const [email, setEmail] = useState("");
 
-  useEffect(()=>{
-    dispatch(clearNotifications())
-  }, [dispatch])
+  //==============notification==============
+  const [notificationPanel, setNotificationPanel] = useState(false);
+
+  const { notifications, status, error } = useSelector(
+    (state) => state.notifications
+  );
+
+  useEffect(() => {
+    dispatch(clearNotifications());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -32,8 +39,10 @@ const NavigationBar = () => {
       dispatch(fetchNotifications(user?.id));
     }
   }, [status, user, dispatch]);
+  //==============notification==============
 
   const avatar = email.slice(0, 1).toUpperCase();
+  
   const onLoginClick = () => {
     navigate("/login");
   };
@@ -44,9 +53,9 @@ const NavigationBar = () => {
 
   const onLogOutClick = () => {
     // logout logic here
-    dispatch(logout()).then(()=>{
-      setEmail("")
-      navigate("/login")
+    dispatch(logout()).then(() => {
+      setEmail("");
+      navigate("/login");
     });
   };
 

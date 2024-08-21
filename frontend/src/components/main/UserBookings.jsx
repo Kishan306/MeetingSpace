@@ -4,6 +4,7 @@ import { clearBookings, fetchBookings } from "../../features/bookings/bookingSli
 import { useParams } from "react-router-dom";
 import { deleteBooking } from "../../features/bookings/bookingSlice";
 import { formatDate } from "../../utils/dateService";
+import { clearNotifications, fetchNotifications } from "../../features/notifications/notifications";
 
 function UserBookings() {
   const id = useParams();
@@ -23,7 +24,11 @@ function UserBookings() {
   
   const handleDelete = (bookingId) => {
     dispatch(deleteBooking({ id: bookingId, user_id: user.id })).then(()=>{
-      dispatch(fetchBookings(id))
+      dispatch(fetchBookings(id)).then(()=>{
+        dispatch(clearNotifications()).then(()=>{
+          dispatch(fetchNotifications(id));
+        })
+      })
     });
   };
 

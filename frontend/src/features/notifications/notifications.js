@@ -16,7 +16,13 @@ const notificationSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    clearNotifications: (state) => {
+      state.notifications = [];
+      state.status = 'idle';
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchNotifications.pending, (state) => {
@@ -33,4 +39,5 @@ const notificationSlice = createSlice({
   },
 });
 
+export const { clearNotifications } = notificationSlice.actions;
 export default notificationSlice.reducer;

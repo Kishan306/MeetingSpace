@@ -8,7 +8,6 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     const dispatch = useDispatch();
     const user = getCurrentUser();
     const isAuth = isAuthenticated();
-    console.log(isAuth)
 
     if(!isAuth){
         dispatch(logout())

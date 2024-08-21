@@ -2,10 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { Avatar, Menu } from "primereact";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { removeToken } from "../../utils/auth";
 import { Sidebar } from "primereact/sidebar";
-import { clearUser } from "../../features/user/userSlice";
-import { fetchNotifications } from "../../features/notifications/notifications";
+import { clearNotifications, fetchNotifications } from "../../features/notifications/notifications";
 import { formatDate } from "../../utils/dateService";
 import { logout } from "../../features/user/userSlice";
 
@@ -21,6 +19,10 @@ const NavigationBar = () => {
   const menuRight = useRef(null);
 
   const [email, setEmail] = useState("");
+
+  useEffect(()=>{
+    dispatch(clearNotifications())
+  }, [dispatch])
 
   useEffect(() => {
     if (user) {

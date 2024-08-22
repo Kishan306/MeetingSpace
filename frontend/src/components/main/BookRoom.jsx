@@ -6,7 +6,7 @@ import { addBooking } from "../../features/bookings/bookingSlice";
 import { useEffect } from "react";
 import { fetchBookingsByRoomNo } from "../../features/bookings/bookingSlice";
 import { formatDate } from "../../utils/dateService";
-import { clearBookings } from "../../features/bookings/bookingSlice";
+import { clearBookings, clearError } from "../../features/bookings/bookingSlice";
 
 function BookRoom() {
 
@@ -29,10 +29,12 @@ function BookRoom() {
 
   if(error){
     alert("Cant book in this slot, check slots")
+    dispatch(clearError())
   }
 
   useEffect(() => {
     dispatch(clearBookings());
+    dispatch(clearError())
   }, [dispatch]);
 
   useEffect(() => {

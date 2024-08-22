@@ -42,6 +42,9 @@ const bookingSlice = createSlice({
       state.bookings = [];
       state.status = 'idle';
       state.error = null;
+    },
+    clearError: (state)=>{
+      state.error = null;
     }
   },
   extraReducers: (builder) => {
@@ -93,5 +96,5 @@ const bookingSlice = createSlice({
   },
 });
 
-export const { clearBookings } = bookingSlice.actions;
+export const { clearBookings, clearError } = bookingSlice.actions;
 export default bookingSlice.reducer;

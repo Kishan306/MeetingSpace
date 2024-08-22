@@ -12,9 +12,9 @@ const signup = async (req, res) => {
       return res.status(400).json({ error: 'Email already in use' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await userModel.createUser(username.trim(), email, hashedPassword);
-    const user = await userModel.findUserByEmail(email);
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+    await userModel.createUser(username.trim(), email.trim(), hashedPassword);
+    const user = await userModel.findUserByEmail(email.trim());
 
     const token = jwt.sign(
       {
@@ -39,13 +39,13 @@ const login = async (req, res) => {
 
   try {
     // Find user by email
-    const user = await userModel.findUserByEmail(email);
+    const user = await userModel.findUserByEmail(email.trim());
     if (!user) {
       return res.status(400).json({ error: 'No user with this email' });
     }
 
     // Compare the provided password with the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password.trim(), user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ error: 'Invalid email or password' });
     }

@@ -11,7 +11,7 @@ const passwordSchema = Joi.string()
 const validateSignup = (req, res, next) => {
   const { username, email, password } = req.body;
 
-  const { error: usernameError } = usernameSchema.validate(username);
+  const { error: usernameError } = usernameSchema.validate(username.trim());
   if (usernameError) return res.status(400).json({ error: "Invalid username" });
 
   const { error: emailError } = emailSchema.validate(email);

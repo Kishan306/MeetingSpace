@@ -45,9 +45,6 @@ const userSlice = createSlice({
     error: null,
   },
   reducers: {
-    setUser(state, action) {
-      state.user = action.payload;
-    },
     clearUser(state) {
       state.user = null;
     },
@@ -82,5 +79,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { clearUser } = userSlice.actions;
 export default userSlice.reducer;

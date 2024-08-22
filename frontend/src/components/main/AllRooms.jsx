@@ -68,7 +68,7 @@ function AllRooms() {
           </label>
         </FloatLabel>
       </div>
-      <div className="flex justify-start flex-wrap p-6 md:px-24">
+      <div className="flex justify-start flex-wrap p-6 md:pl-24">
         {filteredRooms.length > 0 &&
           filteredRooms.map((room, index) => <RoomCard key={index} room={room} />)}
       </div>

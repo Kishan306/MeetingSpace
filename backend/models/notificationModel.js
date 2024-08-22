@@ -15,7 +15,15 @@ const fetchNotificationsByUser = async (user_id) => {
   return result;
 }
 
+const markAllAsRead = async (user_id) => {
+  const [result] = await db.query(
+    "UPDATE notifications SET reading_status = 'read' WHERE receiver_id = ?", [user_id]
+  );
+  return result;
+}
+
 module.exports = {
   createNotification,
-  fetchNotificationsByUser
+  fetchNotificationsByUser,
+  markAllAsRead
 };

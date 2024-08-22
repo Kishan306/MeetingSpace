@@ -1,5 +1,5 @@
 const bookingModel = require("../models/bookingModel");
-const notificationModel = require("../models/notificationModel");
+const notificationModel = require("../models/notificationModel")
 
 const addBooking = async (req, res) => {
   const {
@@ -98,22 +98,12 @@ const getBookingsByUser = async (req, res) => {
   }
 };
 
-const fetchNotificationsByUser = async (req, res) =>{
-  const { user_id } = req.params;
 
-  try{
-    const notifs = await notificationModel.fetchNotificationsByUser(user_id);
-    res.status(200).json({notifs});
-  }catch (err) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-}
 
 module.exports = {
   addBooking,
   getAllBookings,
   deleteBooking,
   getBookingsByRoomNo,
-  getBookingsByUser,
-  fetchNotificationsByUser
+  getBookingsByUser
 };

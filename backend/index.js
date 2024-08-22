@@ -32,9 +32,13 @@ const {
   getAllBookings,
   deleteBooking,
   getBookingsByRoomNo,
-  getBookingsByUser,
-  fetchNotificationsByUser
+  getBookingsByUser
 } = require("./controllers/bookingController");
+
+const {
+  fetchNotificationsByUser,
+  markAllAsRead
+} = require("./controllers/notificationController")
 
 const corsOptions = {
   origin: 'http://localhost:5173',
@@ -68,6 +72,7 @@ app.post(
   checkBookingAvailability,
   addBooking
 );
+app.post("/api/notifications/read/:user_id", markAllAsRead)
 
 app.delete("/api/user/delete-user/:user_id", adminCheck, deleteUser);
 app.delete("/api/rooms/delete-room/:room_id", adminCheck, deleteRoom);

@@ -30,6 +30,7 @@ const NavigationBar = () => {
 
   const hasUnreadNotification = notifications.some(notification => notification.reading_status === 'unread');
 
+  const unreadNotifications = notifications.filter(notification => notification.reading_status === 'unread').length;
 
   useEffect(() => {
     dispatch(clearNotifications());
@@ -154,7 +155,7 @@ const NavigationBar = () => {
                     className="pi pi-bell text-white mr-8 text-2xl p-overlay-badge"
                     onClick={() => setNotificationPanel(true)}
                   >
-                  {hasUnreadNotification && <Badge severity='danger'></Badge>}
+                  {hasUnreadNotification && <Badge value={unreadNotifications} severity='danger'></Badge>}
                   </i>
                   <Avatar
                     label={avatar}

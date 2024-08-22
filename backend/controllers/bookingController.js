@@ -16,7 +16,9 @@ const addBooking = async (req, res) => {
     const bookingFromDate = new Date(bookingFrom);
     const bookingTillDate = new Date(bookingTill);
 
-    if(bookingFromDate > bookingTillDate){
+    const today = new Date();
+
+    if(bookingFromDate > bookingTillDate || bookingFromDate < today || bookingTillDate < today){
       return res.status(400).json({error: "Invalid booking range"})
     }
 

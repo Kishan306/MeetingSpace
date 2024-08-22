@@ -16,6 +16,10 @@ const addBooking = async (req, res) => {
     const bookingFromDate = new Date(bookingFrom);
     const bookingTillDate = new Date(bookingTill);
 
+    if(bookingFromDate > bookingTillDate){
+      return res.status(400).json({error: "Invalid booking range"})
+    }
+
     const booking = await bookingModel.createBooking(
       roomId,
       roomNumber,

@@ -76,7 +76,7 @@ const NavigationBar = () => {
       >
         <div className="flex flex-row mb-6 mt-2">
           <h3 className="text-xl font-semibold">Notifications</h3>
-          <button onClick={()=>{dispatch(markAllAsRead(user?.id)).then(()=>{dispatch(fetchNotifications(user?.id))})}} className="py-1 px-2 ml-2 bg-red-500 active:scale-90 hover:bg-red-400 rounded-full text-white transition duration-300 ease-in-out">Mark all as read</button>
+          <button onClick={()=>{dispatch(markAllAsRead(user?.id)).then(()=>{dispatch(fetchNotifications(user?.id))})}} className={`py-1 px-2 ml-2 ${unreadNotifications>0 ? 'bg-red-500 active:scale-90 hover:bg-red-400' : 'bg-gray-500 hover:bg-gray-400'} rounded-full text-white transition duration-300 ease-in-out`}>Mark all as read</button>
         </div>
         {notifications &&
           notifications.length > 0 &&

@@ -9,6 +9,14 @@ export const fetchNotifications = createAsyncThunk(
   }
 );
 
+export const markAllAsRead = createAsyncThunk(
+  "notifications/read",
+  async (user_id) =>{
+    const response = await apiClient.post(`/api/notifications/read/${user_id}`);
+    return response;
+  }
+)
+
 const notificationSlice = createSlice({
   name: "notifications",
   initialState: {
@@ -35,6 +43,19 @@ const notificationSlice = createSlice({
       .addCase(fetchNotifications.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(markAllAsRead.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(markAllAsRead.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.notifications = state.notifications.map(notification =>
+          notification.reading_status === 'unread' ? { ...notification, readint_status: 'read' } : notification
+        );
+        state.message = action.payload.message; // Update with response message if needed
+      })
+      .addCase(markAllAsRead.rejected, (state) => {
+        state.status = 'failed';
       });
   },
 });

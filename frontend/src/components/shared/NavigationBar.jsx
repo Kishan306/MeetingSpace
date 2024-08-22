@@ -7,6 +7,7 @@ import { Sidebar } from "primereact/sidebar";
 import {
   clearNotifications,
   fetchNotifications,
+  markAllAsRead,
 } from "../../features/notifications/notifications";
 import { formatDate } from "../../utils/dateService";
 import { logout } from "../../features/user/userSlice";
@@ -27,6 +28,9 @@ const NavigationBar = () => {
     (state) => state.notifications
   );
 
+  const hasUnreadNotification = notifications.some(notification => notification.reading_status === 'unread');
+
+
   useEffect(() => {
     dispatch(clearNotifications());
   }, [dispatch]);
@@ -38,7 +42,10 @@ const NavigationBar = () => {
     if (status === "idle") {
       dispatch(fetchNotifications(user?.id));
     }
-  }, [status, user, dispatch]);
+    if(hasUnreadNotification){
+      setNotificationPanel(true)
+    }
+  }, [status, user, dispatch, hasUnreadNotification]);
   //==============notification==============
 
   const avatar = email.slice(0, 1).toUpperCase();
@@ -68,6 +75,7 @@ const NavigationBar = () => {
       >
         <div className="flex flex-row mb-6 mt-2">
           <h3 className="text-xl font-semibold">Notifications</h3>
+          <button onClick={()=>{dispatch(markAllAsRead(user?.id)).then(()=>{dispatch(fetchNotifications(user?.id))})}} className="py-1 px-2 ml-2 bg-red-500 active:scale-90 hover:bg-red-400 rounded-full text-white transition duration-300 ease-in-out">Mark all as read</button>
         </div>
         {notifications &&
           notifications.length > 0 &&
@@ -75,6 +83,7 @@ const NavigationBar = () => {
             <div key={index} className="mb-6">
               <hr className="h-px bg-gray-300" />
               <p className="font-semibold">
+              {notification.reading_status == 'unread' && <Badge severity='danger' className="mb-1 mr-2"></Badge>}
                 {formatDate(notification.created_at)}
               </p>
               <p>{notification.body}</p>
@@ -145,7 +154,7 @@ const NavigationBar = () => {
                     className="pi pi-bell text-white mr-8 text-2xl p-overlay-badge"
                     onClick={() => setNotificationPanel(true)}
                   >
-                  {notifications && notifications.length > 0 && <Badge severity='danger'></Badge>}
+                  {hasUnreadNotification && <Badge severity='danger'></Badge>}
                   </i>
                   <Avatar
                     label={avatar}

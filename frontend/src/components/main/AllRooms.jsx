@@ -4,6 +4,7 @@ import { clearRooms, fetchRooms } from "../../features/rooms/roomsSlice";
 import RoomCard from "./RoomCard";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputNumber } from "primereact/inputnumber";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 function AllRooms() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function AllRooms() {
     }
   }, [dispatch, status]);
 
-  if (status === "loading") return <div>Loading...</div>;
+  if (status === "loading") return <div className="h-96 flex justify-center items-center"><ProgressSpinner/></div>;
   if (status === "failed") return <div>{error}</div>;
 
   const filteredRooms = rooms.filter((room) => {

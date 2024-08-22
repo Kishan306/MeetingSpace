@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, fetchUsers } from "../../features/user/allUserSlice";
 import { useNavigate } from "react-router-dom";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 function AllUsers() {
   //useFetchUser()
@@ -15,7 +16,7 @@ function AllUsers() {
     }
   }, [dispatch, status]);
 
-  if (status === "loading") return <div>Loading...</div>;
+  if (status === "loading") return <div className="h-96 flex justify-center items-center"><ProgressSpinner/></div>;
   if (status === "failed") return <div>{error}</div>;
 
   return (

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { deleteBooking } from "../../features/bookings/bookingSlice";
 import { formatDate } from "../../utils/dateService";
 import { clearNotifications, fetchNotifications } from "../../features/notifications/notifications";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 function UserBookings() {
   const id = useParams();
@@ -32,7 +33,7 @@ function UserBookings() {
     });
   };
 
-  if (status === "loading") return <div>Loading...</div>;
+  if (status === "loading") return <div className="h-96 flex justify-center items-center"><ProgressSpinner/></div>;
   if (status === "failed") return <div>{error}</div>;
 
   return (

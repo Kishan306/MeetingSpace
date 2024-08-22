@@ -11,6 +11,7 @@ import {
 } from "../../features/notifications/notifications";
 import { formatDate } from "../../utils/dateService";
 import { logout } from "../../features/user/userSlice";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const NavigationBar = () => {
   const navigate = useNavigate();
@@ -66,6 +67,8 @@ const NavigationBar = () => {
       navigate("/login");
     });
   };
+  
+  if (status === "loading") return <div className="h-96 flex justify-center items-center"><ProgressSpinner/></div>;
 
   return (
     <>

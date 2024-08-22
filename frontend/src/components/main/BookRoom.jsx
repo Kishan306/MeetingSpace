@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { fetchBookingsByRoomNo } from "../../features/bookings/bookingSlice";
 import { formatDate } from "../../utils/dateService";
 import { clearBookings, clearError } from "../../features/bookings/bookingSlice";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 function BookRoom() {
 
@@ -55,6 +56,8 @@ function BookRoom() {
         navigate("/all-rooms");
     });
   };
+  
+  if (status === "loading") return <div className="h-96 flex justify-center items-center"><ProgressSpinner/></div>;
 
   return (
     <>

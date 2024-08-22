@@ -172,9 +172,9 @@ function BookRoom() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
-        <p className="text-2xl font-semibold">Booked slots:</p>
-        <table className="w-96 divide-y divide-gray-200">
+      <div className="flex flex-col items-center justify-center mb-24">
+        <p className="text-2xl font-semibold mb-2">Booked Slots:</p>
+        <table className="w-80 md:w-96 divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th

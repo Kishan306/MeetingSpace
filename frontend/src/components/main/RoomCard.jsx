@@ -11,10 +11,10 @@ function RoomCard({ room }) {
   const user = useSelector((state) => state.user.user);
 
   return (
-    <div className=" h-80 relative border-none shadow-lg rounded-lg m-10 hover:shadow-xl transition duration-300 p-6">
-      <h1 className="text-4xl font-medium text-slate-500 mb-6">
+    <div className="h-[350px] md:h-80 relative border-none shadow-lg rounded-lg m-10 hover:shadow-xl transition duration-300 p-6">
+      <h1 className="text-2xl md:text-4xl font-medium text-slate-500 mb-6">
         Room:{" "}
-        <span className="text-5xl font-semibold text-gray-600">{room?.room_number}</span>
+        <span className="text-4xl md:text-5xl font-semibold text-gray-600">{room?.room_number}</span>
       </h1>
       <h3 className="text-lg text-slate-400">
         Capacity: <span className="font-semibold text-slate-500">{room?.capacity}</span>

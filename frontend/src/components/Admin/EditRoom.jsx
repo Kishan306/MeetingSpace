@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchRoomByRoomNo, clearRoom, editRoom } from "../../features/rooms/roomSlice";
 import { fetchRooms } from "../../features/rooms/roomsSlice";
-import useFetchUser from "../../hooks/useAuthCheck";
 
 function EditRoom() {
   //useFetchUser()

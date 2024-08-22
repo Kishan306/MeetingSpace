@@ -15,10 +15,8 @@ import BookRoom from "./components/main/BookRoom";
 import AllRooms from "./components/main/AllRooms";
 import AllUsers from "./components/Admin/AllUsers";
 import UserBookings from "./components/main/UserBookings";
-import useAuthCheck from "./hooks/useAuthCheck";
 
 function App() {
-  // useAuthCheck()
   return (
     <>
       <Router>

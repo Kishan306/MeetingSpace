@@ -8,7 +8,6 @@ import { InputNumber } from "primereact/inputnumber";
 function AllRooms() {
   const dispatch = useDispatch();
   const { rooms, status, error } = useSelector((state) => state.rooms);
-  const user = useSelector((state) => state.user.user); 
 
   const [capacityFilter, setCapacityFilter] = useState(null);
   const [roomNumberFilter, setRoomNumberFilter] = useState(null);
@@ -35,10 +34,10 @@ function AllRooms() {
 
   return (
     <>
-      <h2 className="md:ml-24 mb-8 text-3xl md:text-5xl font-bold mt-8 ">
+      <h2 className="ml-14 md:ml-24 mb-8 text-3xl md:text-5xl font-bold mt-8 ">
         All Rooms
       </h2>
-      <div className="flex flex-col md:flex-row justify-start p-6 mt-4 px-36">
+      <div className="flex flex-col md:flex-row justify-between md:justify-start p-6 mt-4 px-14 md:px-36">
         <FloatLabel>
           <InputNumber
             value={capacityFilter}
@@ -69,7 +68,7 @@ function AllRooms() {
           </label>
         </FloatLabel>
       </div>
-      <div className="flex justify-start flex-wrap p-12 md:px-24">
+      <div className="flex justify-start flex-wrap p-6 md:px-24">
         {filteredRooms.length > 0 &&
           filteredRooms.map((room, index) => <RoomCard key={index} room={room} />)}
       </div>

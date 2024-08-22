@@ -14,7 +14,6 @@ import { logout } from "../../features/user/userSlice";
 const NavigationBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
 
   const menuRight = useRef(null);
@@ -24,7 +23,7 @@ const NavigationBar = () => {
   //==============notification==============
   const [notificationPanel, setNotificationPanel] = useState(false);
 
-  const { notifications, status, error } = useSelector(
+  const { notifications, status } = useSelector(
     (state) => state.notifications
   );
 
@@ -175,8 +174,7 @@ const NavigationBar = () => {
                     ref={menuRight}
                     id="popup_menu_right"
                     popup={true}
-                    className="origin-top-right p-2 absolute font-semibold right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    onHide={() => setMenuOpen(false)}
+                    className="origin-top-right p-2 absolute font-semibold right-0 mt-2 w-44 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   />
                 </div>
               )}

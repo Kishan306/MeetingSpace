@@ -99,7 +99,7 @@ const NavigationBar = () => {
           </div>
         )}
       </Sidebar>
-      <nav className="bg-blue-500 py-4 min-h-16 sticky top-0 z-50 w-full">
+      <nav className="bg-blue-500 py-4 min-h-16 sticky top-0 z-50 w-full shadow-xl">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Navigation Links */}

@@ -50,7 +50,7 @@ const notificationSlice = createSlice({
       .addCase(markAllAsRead.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.notifications = state.notifications.map(notification =>
-          notification.reading_status === 'unread' ? { ...notification, readint_status: 'read' } : notification
+          notification.reading_status === 'unread' ? { ...notification, reading_status: 'read' } : notification
         );
         state.message = action.payload.message; // Update with response message if needed
       })

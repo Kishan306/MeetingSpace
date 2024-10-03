@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Avatar, Menu } from "primereact";
-import { Badge } from 'primereact/badge';
+import { Badge } from "primereact/badge";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Sidebar } from "primereact/sidebar";
@@ -11,7 +11,7 @@ import {
 } from "../../features/notifications/notifications";
 import { formatDate } from "../../utils/dateService";
 import { logout } from "../../features/user/userSlice";
-import { ProgressSpinner } from 'primereact/progressspinner';
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const NavigationBar = () => {
   const navigate = useNavigate();
@@ -25,13 +25,15 @@ const NavigationBar = () => {
   //==============notification==============
   const [notificationPanel, setNotificationPanel] = useState(false);
 
-  const { notifications, status } = useSelector(
-    (state) => state.notifications
+  const { notifications, status } = useSelector((state) => state.notifications);
+
+  const hasUnreadNotification = notifications.some(
+    (notification) => notification.reading_status === "unread"
   );
 
-  const hasUnreadNotification = notifications.some(notification => notification.reading_status === 'unread');
-
-  const unreadNotifications = notifications.filter(notification => notification.reading_status === 'unread').length;
+  const unreadNotifications = notifications.filter(
+    (notification) => notification.reading_status === "unread"
+  ).length;
 
   useEffect(() => {
     dispatch(clearNotifications());
@@ -44,14 +46,14 @@ const NavigationBar = () => {
     if (status === "idle") {
       dispatch(fetchNotifications(user?.id));
     }
-    if(hasUnreadNotification){
-      setNotificationPanel(true)
+    if (hasUnreadNotification) {
+      setNotificationPanel(true);
     }
   }, [status, user, dispatch, hasUnreadNotification]);
   //==============notification==============
 
   const avatar = email.slice(0, 1).toUpperCase();
-  
+
   const onLoginClick = () => {
     navigate("/login");
   };
@@ -67,38 +69,60 @@ const NavigationBar = () => {
       navigate("/login");
     });
   };
-  
-  if (status === "loading") return <div className="h-96 flex justify-center items-center"><ProgressSpinner/></div>;
+
+  if (status === "loading")
+    return (
+      <div className="h-96 flex justify-center items-center">
+        <ProgressSpinner />
+      </div>
+    );
 
   return (
     <>
-      <Sidebar
-        visible={notificationPanel}
-        position="right"
-        onHide={() => setNotificationPanel(false)}
-      >
-        <div className="flex flex-row mb-6 mt-2">
-          <h3 className="text-xl font-semibold">Notifications</h3>
-          <button onClick={()=>{dispatch(markAllAsRead(user?.id)).then(()=>{dispatch(fetchNotifications(user?.id))})}} className={`py-1 px-2 ml-2 ${unreadNotifications>0 ? 'bg-red-500 active:scale-90 hover:bg-red-400' : 'bg-gray-500 hover:bg-gray-400'} rounded-full text-white transition duration-300 ease-in-out`}>Mark all as read</button>
-        </div>
-        {notifications &&
-          notifications.length > 0 &&
-          notifications.map((notification, index) => (
-            <div key={index} className="mb-6">
-              <hr className="h-px bg-gray-300" />
-              <p className="font-semibold">
-              {notification.reading_status == 'unread' && <Badge severity='danger' className="mb-1 mr-2"></Badge>}
-                {formatDate(notification.created_at)}
-              </p>
-              <p>{notification.body}</p>
-            </div>
-          ))}
-        {notifications && notifications.length == 0 && (
-          <div className="h-full flex justify-center items-center text-lg">
-            No new notifications
+      {user && (
+        <Sidebar
+          visible={notificationPanel}
+          position="right"
+          onHide={() => setNotificationPanel(false)}
+        >
+          <div className="flex flex-row mb-6 mt-2">
+            <h3 className="text-xl font-semibold">Notifications</h3>
+            <button
+              onClick={() => {
+                dispatch(markAllAsRead(user?.id)).then(() => {
+                  dispatch(fetchNotifications(user?.id));
+                });
+              }}
+              className={`py-1 px-2 ml-2 ${
+                unreadNotifications > 0
+                  ? "bg-red-500 active:scale-90 hover:bg-red-400"
+                  : "bg-gray-500 hover:bg-gray-400"
+              } rounded-full text-white transition duration-300 ease-in-out`}
+            >
+              Mark all as read
+            </button>
           </div>
-        )}
-      </Sidebar>
+          {notifications &&
+            notifications.length > 0 &&
+            notifications.map((notification, index) => (
+              <div key={index} className="mb-6">
+                <hr className="h-px bg-gray-300" />
+                <p className="font-semibold">
+                  {notification.reading_status == "unread" && (
+                    <Badge severity="danger" className="mb-1 mr-2"></Badge>
+                  )}
+                  {formatDate(notification.created_at)}
+                </p>
+                <p>{notification.body}</p>
+              </div>
+            ))}
+          {notifications && notifications.length == 0 && (
+            <div className="h-full flex justify-center items-center text-lg">
+              No new notifications
+            </div>
+          )}
+        </Sidebar>
+      )}
       <nav className="bg-blue-500 py-4 min-h-16 sticky top-0 z-50 w-full shadow-xl">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
@@ -158,7 +182,12 @@ const NavigationBar = () => {
                     className="pi pi-bell text-white mr-8 text-2xl p-overlay-badge"
                     onClick={() => setNotificationPanel(true)}
                   >
-                  {hasUnreadNotification && <Badge value={unreadNotifications} severity='danger'></Badge>}
+                    {hasUnreadNotification && (
+                      <Badge
+                        value={unreadNotifications}
+                        severity="danger"
+                      ></Badge>
+                    )}
                   </i>
                   <Avatar
                     label={avatar}

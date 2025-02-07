@@ -1,7 +1,8 @@
-version: '3'
+version: '3.8'
 
 services:
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
     restart: always
@@ -10,26 +11,49 @@ services:
     depends_on:
       - backend
     volumes:
-      - /app/node_modules
+      - frontend_build:/app/build
     networks:
-      - backend_network
+      - app-network
   
   backend:
+    container_name: backend
     build:
       context: ./backend
     environment:
-      - DB_HOST=host.docker.internal
+      - DB_HOST=mysql-container
       - DB_PORT=3306
       - DB_USER=root
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_DATABASE}
-    env_file:
-      - ./backend/.env
+      - DB_PASSWORD=password
+      - DB_NAME=ROOM_BOOKING_SYSTEM
     ports: 
       - "4000:4000"
+    depends_on:
+      - mysql
+    volumes:
+      - backend_data:/app/data
     networks:
-      - backend_network
+      - app-network
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    container_name: mysql-container 
+    environment:
+      - MYSQL_DATABASE=ROOM_BOOKING_SYSTEM
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+      - MYSQL_USER=root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+  frontend_build:
+  backend_data:
 
 networks:
-  backend_network:
-    driver: bridge
+  app-network:

@@ -44,7 +44,6 @@ services:
     environment:
       - MYSQL_DATABASE=ROOM_BOOKING_SYSTEM
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_PASSWORD=password
       - MYSQL_USER=root
     ports:
       - "3306:3306"

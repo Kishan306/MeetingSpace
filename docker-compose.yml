@@ -19,6 +19,8 @@ services:
     container_name: backend
     build:
       context: ./backend
+    env_file:
+      - ./backend/.env
     environment:
       - DB_HOST=mysql-container
       - DB_PORT=3306
@@ -28,7 +30,8 @@ services:
     ports: 
       - "4000:4000"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     volumes:
       - backend_data:/app/data
     networks:
@@ -44,11 +47,16 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_USER=root
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mysql_data:

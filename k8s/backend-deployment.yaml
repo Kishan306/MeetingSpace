@@ -3,7 +3,7 @@ kind: Deployment
 metadata: 
   name: backend-deployment
 spec: 
-  replicas: 3
+  replicas: 2
   selector: 
     matchLabels:
       component: server
@@ -17,3 +17,12 @@ spec:
           image: kishan306/meetingspace-backend:latest
           ports:
             - containerPort: 4000
+          env:
+            - name: DB_HOST
+              value: mysql-cluster-ip-service
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_PASSWORD
+              value: "password"
+            - name: DB_NAME
+              value: "ROOM_BOOKING_SYSTEM"

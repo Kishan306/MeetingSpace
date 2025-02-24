@@ -15,12 +15,12 @@ spec:
             backend:
               service:
                 name: frontend-cluster-ip-service
-              port:
-                number: 5173
+                port:
+                  number: 5173
           - path: /api/?(.*)
             pathType: ImplementationSpecific
             backend:
               service:
                 name: backend-cluster-ip-service
-              port:
-                number: 4000
+                port:
+                  number: 4000

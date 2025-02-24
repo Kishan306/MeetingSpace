@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: backend-deployment
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels:
+      component: server
+  template:
+    metadata:
+      labels:
+        component: server
+    spec:
+      containers:
+        - name: backend
+          image: kishan306/meetingspace-backend:latest
+          ports:
+            - containerPort: 4000
